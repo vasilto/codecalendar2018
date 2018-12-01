@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -1023,6 +1025,15 @@ public class DayOne {
         return Integer.valueOf(string);
     }
 
+    static ArrayList<Integer> listOfIntegers(String[] strings) {
+        ArrayList<Integer> tempList = new ArrayList();
+        for (String string :
+                strings) {
+            tempList.add(convertStringToInt(string));
+        }
+        return tempList;
+    }
+
     static void dayOnePartOne() {
         Integer resultingFrequency = 0;
         for (String changeOfFrequency :
@@ -1035,14 +1046,19 @@ public class DayOne {
     static void dayOnePartTwo() {
         Integer resultingFrequency = 0;
         HashSet<Integer> uniqueValues = new HashSet<Integer>();
-         (String changeOfFrequency :
-                dayOneInput.split("\n")) {
-            resultingFrequency = resultingFrequency + convertStringToInt(changeOfFrequency);
+        ArrayList<Integer> list = listOfIntegers(dayOneInput.split("\n"));
+        int index = 0;
+        do {
+            resultingFrequency = resultingFrequency + list.get(index);
             if (uniqueValues.contains(resultingFrequency)) {
-                System.out.println("This is the first frequency your device reaches" + resultingFrequency);
-            } else uniqueValues.add(resultingFrequency);
-        }
-        System.out.println(resultingFrequency);
+                System.out.println("the answer is: " + resultingFrequency);
+                break;
+            }
+            uniqueValues.add(resultingFrequency);
+            if (index == list.size() - 1) {
+                index = 0;
+            } else index++;
+        } while (true);
     }
 
 
