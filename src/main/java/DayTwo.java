@@ -255,7 +255,7 @@ public class DayTwo {
             "xregqmyonskvvxpalfiwhactdb\n" +
             "xregqmyonskvzupsliiwhwctdb";
 
-    static ArrayList<String> ids(String input) {
+    public static ArrayList<String> ids(String input) {
         ArrayList<String> listOfIds = new ArrayList<String>();
         listOfIds.addAll(Arrays.asList(input.split("\n")));
         return listOfIds;
