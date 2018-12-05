@@ -1352,35 +1352,6 @@ public class DayThree {
             "#1346 @ 433,843: 20x20\n" +
             "#1347 @ 796,526: 28x18";
 
-
-    static String testInput = "#1200 @ 1,3: 4x4\n" +
-            "#1200 @ 3,1: 4x4\n" +
-            "#1201 @ 5,5: 2x2\n";
-//    static Map<BigDecimal, String> mapOfTheFabric() {
-//        Map<BigDecimal, String> temp = new HashMap<BigDecimal, String>();
-//        BigDecimal index = BigDecimal.valueOf(1.0001);
-//        for (int i = 1; i <= 1000; i++) {
-//            for (int m = 0; m < 1000; m++) {
-//                temp.put(index, "X");
-//                index = index.add(BigDecimal.valueOf(0.0001));
-//            }
-//            index = BigDecimal.valueOf(i + 0.0001);
-//        }
-//        return temp;
-//    }
-
-    static Map<Integer, ArrayList<String>> mapOfTheFabric() {
-        Map<Integer, ArrayList<String>> temp = new HashMap<Integer, ArrayList<String>>();
-        ArrayList<String> possibleSpacesForRow = new ArrayList<String>();
-        for (int i = 0; i < 1000; i++) {
-            possibleSpacesForRow.add("x");
-        }
-        for (int row = 0; row < 1000; row++) {
-            temp.put(row, possibleSpacesForRow);
-        }
-        return temp;
-    }
-
     static String[][] fabric() {
         String[][] temp = new String[1000][1000];
 
@@ -1458,7 +1429,13 @@ public class DayThree {
                 for (int fromTop = startingPointFromTop; fromTop <=endPointTall; fromTop++) {
                     if (usedFabric[fromLeft][fromTop].equalsIgnoreCase("reserved")) {
                         isThatTheBestElv = true;
-                    } else isThatTheBestElv = false;
+                    } else {
+                        isThatTheBestElv = false;
+                        break;
+                    }
+                }
+                if (!isThatTheBestElv) {
+                    break;
                 }
             }
             if (isThatTheBestElv) {
