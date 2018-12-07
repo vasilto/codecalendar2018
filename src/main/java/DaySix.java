@@ -4,7 +4,7 @@ import java.util.*;
 
 public class DaySix {
 
-    static String  in3put = "242, 112\n" +
+    static String  input = "242, 112\n" +
             "292, 356\n" +
             "66, 265\n" +
             "73, 357\n" +
@@ -55,7 +55,7 @@ public class DaySix {
             "292, 311\n" +
             "202, 62";
 
-    static String input = "1, 1\n" +
+    static String in4put = "1, 1\n" +
             "1, 6\n" +
             "8, 3\n" +
             "3, 4\n" +
@@ -64,9 +64,9 @@ public class DaySix {
 
     static Integer[][] testGrid = new Integer[11][11];
 
-    static Integer[][] grid = testGrid;
+    static Integer[][] grid = new Integer[400][400];
     static int numberOfAreas;
-
+    static int sizeOfAll = 0;
     static Map<Integer, Integer> mapOfAreasSizes = new HashMap<>();
 
     static List<String> coordinates = DayTwo.ids(input);
@@ -88,6 +88,18 @@ public class DaySix {
             areaId++;
         }
         numberOfAreas = areaId;
+        int comulativeSizeOfAreaCenter = 0;
+        for (int i = 0; i < listOfCoordinates.size(); i ++) {
+            for (int m = 0; m < listOfCoordinates.size(); m++){
+                if (i != m) {
+                    comulativeSizeOfAreaCenter = comulativeSizeOfAreaCenter +findManhattanDistanceBetweenTwoPoints(getCoordinateY(listOfCoordinates.get(m)), getCoordinateX(listOfCoordinates.get(m)),listOfCoordinates.get(i));
+                }
+            }
+            if (comulativeSizeOfAreaCenter < 10000) {
+                sizeOfAll++;
+            }
+            comulativeSizeOfAreaCenter = 0;
+        }
     }
 
     static int findManhattanDistanceBetweenTwoPoints(int emptyPointCoordinateX, int emptyPointCoordinatesY, String coordinatesSecondPoint) {
@@ -117,8 +129,6 @@ public class DaySix {
                         comulativeDistance = comulativeDistance + singleManhattanDistance;
                     }
                     if (grid[y][x] == null) {
-
-
                         Collections.sort(manhattanDistances);
                         if (manhattanDistances.get(0) == manhattanDistances.get(1)) {
                             grid[y][x] = 100;
@@ -129,10 +139,10 @@ public class DaySix {
                                 tempMapOfAreasSizes.put(manhattanDistanceAndAreaCenter.get(manhattanDistances.get(0)), tempMapOfAreasSizes.get(manhattanDistanceAndAreaCenter.get(manhattanDistances.get(0))) + 1);
                             } else tempMapOfAreasSizes.put(manhattanDistanceAndAreaCenter.get(manhattanDistances.get(0)),  1);
                         }
+                    }
 
-                        if (comulativeDistance < 32) {
-                            System.out.println( "" + comulativeDistance + " the region is " +  manhattanDistanceAndAreaCenter.get(manhattanDistances.get(0)));
-                        }
+                    if (comulativeDistance < 10000) {
+                        sizeOfAll = sizeOfAll + 1;
                     }
                     manhattanDistanceAndAreaCenter.clear();
                     manhattanDistances.clear();
@@ -141,6 +151,7 @@ public class DaySix {
             }
         }
         mapOfAreasSizes = tempMapOfAreasSizes;
+        System.out.println(sizeOfAll);
     }
 
     static List<Integer>  removeInfiniteAreas() {
